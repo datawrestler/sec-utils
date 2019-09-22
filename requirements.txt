@@ -5,5 +5,3 @@ httplib2
 ftfy
 pandas
 requests
-zipfile
-urllib
