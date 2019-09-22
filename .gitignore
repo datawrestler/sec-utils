@@ -1,0 +1,22 @@
+# ignore pychace
+**__pycache__
+
+# checkpoints
+**.ipynb_checkpoints
+
+# keystore
+**keystore
+
+**scratch
+*scratch*
+
+# screenlog files
+**screenlog.0
+
+# keystores
+*keystore.py
+
+# egg file
+**egg-info
+
+
