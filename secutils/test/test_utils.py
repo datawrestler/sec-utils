@@ -2,7 +2,9 @@ import os
 import unittest
 from datetime import datetime
 
-from bulkedgar.utils import scan_output_dir, _remove_bad_bytes, _to_quarter, ValidateFields
+from secutils.utils import (scan_output_dir, _remove_bad_bytes, 
+                            _to_quarter, ValidateFields, 
+                            _read_cik_config)
 
 class TestUtils(unittest.TestCase):
 
@@ -11,6 +13,15 @@ class TestUtils(unittest.TestCase):
         quarter = _to_quarter(month)
         msg = f"Quarter should be Q4 - got {quarter} instead"
         self.assertEqual(quarter, 'Q4', msg)
+
+    def test_cik_config(self):
+        dirname = os.path.dirname(__file__)
+        cik_config_path = os.path.join(dirname, 'data/test_cik_config.txt')
+        ciks = _read_cik_config(cik_config_path)
+        check = all([isinstance(x, int) for x in ciks])
+        failed_type_check = set([type(x) for x in ciks])
+        msg = f"_read_cik_config not casting CIK's to ints w/types: {failed_type_check}"
+        self.assertTrue(check, msg)
 
     def test_validate_date(self):
         dte = '2016-6-2'

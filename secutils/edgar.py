@@ -19,7 +19,10 @@ import pandas as pd
 import validators
 import httplib2
 
-from utils import _to_quarter, ValidateFields, _remove_bad_bytes
+from secutils.utils import (
+    _to_quarter, ValidateFields,
+    _remove_bad_bytes, _check_cache_dir
+)
 
 logger = logging.getLogger(__name__)
 
@@ -189,15 +192,14 @@ class FormIDX(object):
     full_index_url = 'https://www.sec.gov/Archives/edgar/full-index/{year}/QTR{quarter}/master.zip'
 
     def __init__(self, year: int, quarter: int, seen_files: Optional[List[str]] = None, 
-                cache_dir: Optional[str]=None, form_types: Optional[List[str]]=None):
+                cache_dir: Optional[str]=None, form_types: Optional[List[str]]=None, 
+                ciks: Optional[int]=None):
         self.year = year
         self.quarter = quarter
         self.download_url = self.full_index_url.format(year=year, quarter=quarter)
         self.seen_files = seen_files
-        if cache_dir:
-            if not os.path.exists(cache_dir):
-                os.makedirs(cache_dir)
-        self.cache_dir = cache_dir
+        self.cache_dir = _check_cache_dir(cache_dir)
+        self.ciks = ciks
         self.form_name = f"formidx-{self.year}-{self.quarter}.csv"
         self.form_types = form_types
         self.master_index = self._get_master_zip_index()
@@ -230,6 +232,7 @@ class FormIDX(object):
         og_shape = master_index.shape[0]
         master_index = self._filter_seen_files(master_index)
         master_index = self._filter_form_type(master_index)
+        master_index = self._filter_ciks(master_index)
         num_remaining_download = master_index.shape[0]
         msg = f"master index ({self.year}) - ({self.quarter}) - original shape: {og_shape} - remaining download: {num_remaining_download}"
         logger.info(msg)
@@ -252,6 +255,14 @@ class FormIDX(object):
             msg = f"specified form type not found in master.idx ({self.year}) - ({self.quarter}) - form not found: {form_not_found}"
             logger.warning(msg)
             master_index = master_index.loc[master_index['Form Type'].isin(self.form_types)]
+        return master_index
+
+    def _filter_ciks(self, master_index: pd.DataFrame) -> pd.DataFrame:
+        if self.ciks:
+            self.ciks = [self.validate_cik(cik) for cik in self.ciks]
+            master_index = master_index.loc[master_index['CIK'].isin(self.ciks)]
+            msg = f"Found {master_index.shape[0]} files for CIK list"
+            logger.info(msg)
         return master_index
 
     def _filter_seen_files(self, master_index: pd.DataFrame) -> pd.DataFrame:

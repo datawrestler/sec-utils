@@ -4,7 +4,7 @@ import unittest
 
 import pandas as pd
 
-from bulkedgar.edgar import (FileUtils, File, 
+from secutils.edgar import (FileUtils, File, 
                        FormIDX, build_dir_structure, 
                        download_docs, SECContainer)
 

@@ -14,6 +14,17 @@ def scan_output_dir(output_dir: Path) -> List[str]:
                 seen_files.append(name)
     return seen_files
 
+def _check_cache_dir(cache_dir: str) -> str:
+    if cache_dir:
+        if not os.path.exists(cache_dir):
+            os.makedirs(cache_dir)
+    return cache_dir
+
+def _read_cik_config(cik_path: str) -> List[int]:
+    with open(cik_path, 'r') as infile:
+        lines = infile.readlines()
+        ciks = [ValidateFields.validate_cik(cik.replace('\n', '')) for cik in lines]
+    return ciks
 
 def _remove_bad_bytes(lines: List[bytes]) -> List[str]:
     cleanlines = []

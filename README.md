@@ -1,5 +1,5 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-
+[![Build Status](https://travis-ci.org/datawrestler/sec-utils.svg?branch=master)](https://travis-ci.org/datawrestler/sec-utils)
 
 #### Welcome to bulkedgar
 Batch SEC Downloader is a utility package to facilitate large bulk downloads of SEC documents. It works with any SEC document type and will retrieve the entire historical database if required. It downloads SEC documents over multiple threads. 

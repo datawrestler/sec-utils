@@ -1,0 +1,6 @@
+nose2
+validators
+tqdm
+httplib2
+ftfy
+pandas
