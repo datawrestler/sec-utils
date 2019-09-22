@@ -13,6 +13,9 @@
 # screenlog files
 **screenlog.0
 
+# ignore distribution files
+**dist
+
 # keystores
 *keystore.py
 

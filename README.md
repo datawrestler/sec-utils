@@ -28,7 +28,7 @@ There are also plans to integrate directly with popular cloud providers given th
 Installation can be done straight from source or the python packaging index:
 
 ```bash
-pip install bulkedgar
+pip install secutils
 ```
 
 ##### Usage <a id='usage' />
@@ -38,7 +38,7 @@ python download_sec.py --output_dir=/mnt/sda/sec --form_types=S-1 --num_workers=
 
 Additionally, users can leverage the API directly for more hands on work:
 ```python
-from bulkedgar import FormIDX
+from secutils.edgar import FormIDX
 form = FormIDX(year=2017, quarter=1, seen_files=None, cache_dir=None, form_types=['10-K])
 files = form.index_to_files()
 form.master_index.head()

@@ -180,7 +180,7 @@ class FormIDX(object):
 
     Example:
     --------
-    >>> from secutils.edgar import FormIDX
+    >>> from bulkedgar import FormIDX
     >>> form = FormIDX(year=2017, quarter=1, seen_files=None, cache_dir=None, form_types=['10-K])
     >>> files = form.index_to_files()
     >>> form.master_index.head()
