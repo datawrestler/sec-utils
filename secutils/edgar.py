@@ -252,8 +252,9 @@ class FormIDX(object):
         if self.form_types:
             unique_forms = master_index['Form Type'].unique().tolist()
             form_not_found = [form for form in self.form_types if form not in unique_forms]
-            msg = f"specified form type not found in master.idx ({self.year}) - ({self.quarter}) - form not found: {form_not_found}"
-            logger.warning(msg)
+            if len(form_not_found) > 0:
+                msg = f"specified form type not found in master.idx ({self.year}) - ({self.quarter}) - form not found: {form_not_found}"
+                logger.warning(msg)
             master_index = master_index.loc[master_index['Form Type'].isin(self.form_types)]
         return master_index
 
