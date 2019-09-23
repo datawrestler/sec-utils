@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/datawrestler/sec-utils.svg?branch=master)](https://travis-ci.org/datawrestler/sec-utils)
 [![PyPI version](https://badge.fury.io/py/secutils.svg)](https://badge.fury.io/py/secutils)
 
-#### Welcome to [sec-utils](https://github.com/datawrestler/sec-utils)
+#### Welcome to [secutils](https://github.com/datawrestler/sec-utils)
 **secutils** is a utility package to facilitate large bulk downloads of SEC documents. It works with any SEC document type and will retrieve the entire historical database if required. Multi-threaded file downloads are enabled in the command line utility.
 
 Key functionality includes:
