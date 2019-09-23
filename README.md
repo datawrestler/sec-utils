@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/secutils.svg)](https://badge.fury.io/py/secutils)
 
 #### Welcome to [sec-utils](https://github.com/datawrestler/sec-utils)
-Batch SEC Downloader is a utility package to facilitate large bulk downloads of SEC documents. It works with any SEC document type and will retrieve the entire historical database if required. Multi-threaded file downloads are enabled in the command line utility.
+**secutils** is a utility package to facilitate large bulk downloads of SEC documents. It works with any SEC document type and will retrieve the entire historical database if required. Multi-threaded file downloads are enabled in the command line utility.
 
 Key functionality includes:
 - Multi-threaded downloading
@@ -19,11 +19,11 @@ Overview of README:
 - [Vision](#vision)
 
 ##### Motivation <a id='motivate' />
-Bulk SEC Downloader picks up where a number of other repos left off. There are a couple SEC downloading python packages out there, however they are designed from retrieval of few documents. I needed a way to consistently download the latest updates from the SEC and secure a local copy of the entire history of the SEC. This translates into TB's of documents, where fundamentally different issues arise like networking issues, storage issues, etc. 
+secutils picks up where a number of other repos left off. There are a couple SEC downloading python packages out there, however they are designed from retrieval of few documents. I needed a way to consistently download the latest updates from the SEC and secure a local copy of the entire history of the SEC for certain file types. This translates into TB's of documents, where networking, directory structure, logging, etc. issues arise. 
 
 There is a nice package available to download and construct index files, however the user is still left to download the actual files and must be comfortable with bash scripting. 
 
-With bulk-python-edgar the program handles files you have already retrieved, get's the missing files you don't have in your local archive, and continues. 
+With secutils the program handles files you have already retrieved, get's the missing files you don't have in your local archive, and continues. 
 
 For examples of other repos that exist: 
 
