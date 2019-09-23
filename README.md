@@ -110,4 +110,22 @@ Getting hands on is great, however using the CLI does provide several advantages
 - Multi-threaded file downloading
 
 ##### Vision <a id='vision' />
-The vision of this project extends far beyond it's current state
+The vision for this project extends far beyond it's current state of downloading index and SEC files from the Edgar database. Currently, parsing SEC files is tremendously difficult. There are numerous reasons for these difficulties including:
+
+- No systematic tagging structure for SEC filings
+- File submissions changed over the years
+- Many different file types, header types, and content from one filing type to another
+
+Given the above, parsing even a 10-K takes tremendous effort. The goal of this project is to bring together like minded individuals and take a stab at a systematic parsing effort with a consistent API. The future state of the project would allow users to download SEC filings and use convenient methods to retrieve particular sections of the filings. For instance, a user could do something like the following:
+
+```python
+from secutils.file_types import file_10k
+
+file_path = '/path/to/10-K'
+f = file_10k.from_path(file_path)
+
+# and retrieve the management discussion and analysis section directly:
+f.management_discussion()
+# Here at XYZ company, we believe the following year will bring about great properity due to our R&D efforts in packages like secutils...
+```
+This would open up a world of opportunity for collaboration, text analytics research, and general business information gathering. 
