@@ -1,11 +1,12 @@
 import setuptools
+import secutils
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="secutils",
-    version="0.0.1",
+    version=secutils.__version__,
     author="Jason Lewris, Steve To, Tyler Lewris",
     author_email="datawrestler@gmail.com",
     description="Download SEC files in bulk",

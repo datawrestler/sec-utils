@@ -1,5 +1,6 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Build Status](https://travis-ci.org/datawrestler/sec-utils.svg?branch=master)](https://travis-ci.org/datawrestler/sec-utils)
+[![PyPI version](https://badge.fury.io/py/secutils.svg)](https://badge.fury.io/py/secutils)
 
 #### Welcome to bulkedgar
 Batch SEC Downloader is a utility package to facilitate large bulk downloads of SEC documents. It works with any SEC document type and will retrieve the entire historical database if required. It downloads SEC documents over multiple threads.
@@ -15,6 +16,7 @@ Overview of README:
 - [Motivation](#motivate)
 - [Installation](#install)
 - [Usage](#usage)
+- [Vision](#vision)
 
 ##### Motivation <a id='motivate' />
 Bulk SEC Downloader picks up where a number of other repos left off. There are a couple SEC downloading python packages out there, however they are designed from retrieval of few documents. I needed a way to consistently download the latest updates from the SEC and secure a local copy of the entire history of the SEC. This translates into TB's of documents, where fundamentally different issues arise like networking issues, storage issues, etc. 
@@ -51,6 +53,7 @@ pip install -e .
 
 ##### Usage <a id='usage' />
 ```bash
+conda activate sec_env
 python download_sec.py --output_dir=/mnt/sda/sec --form_types=S-1 --num_workers=-1 --start_year=2014 --end_year=2019 --quarters 1 2 3 4
 ```
 Even more cleanly, you can coordinate long running jobs and keep track of your parameters by modifying this [example script](https://github.com/datawrestler/sec-utils/blob/master/examples/run.sh)
@@ -61,7 +64,7 @@ chmod +x run.sh
 ./run.sh
 ```
 
-Additionally, users can leverage the API directly for more hands on work:
+Additionally, users can leverage the API directly for more hands on work. An overview resides in an [example jupyter notebook](https://github.com/datawrestler/sec-utils/blob/master/examples/Getting%20Started.ipynb) with additional details below:
 ```python
 from secutils.edgar import FormIDX
 form = FormIDX(year=2017, quarter=1, seen_files=None, cache_dir=None, form_types=['10-K])
@@ -105,3 +108,6 @@ Getting hands on is great, however using the CLI does provide several advantages
 - Built in logging and caching
 - Ability to resume training via download scanning
 - Multi-threaded file downloading
+
+##### Vision <a id='vision' />
+The vision of this project extends far beyond it's current state
