@@ -7,7 +7,7 @@
 #### Vision <a id='vision' />
 The vision of this project is to create a fully open source downloading and parsing library for SEC documentation. Parsing SEC files is historically quite difficult. The formats for these files have changed over the years so what worked in the 1990's is completely outdated today. Coming up with universal parsing methods to take downloaded files and return specific sections is the vision of the project. 
 
-For instance, a user can import the form 10-K from bulkedgar, point to their 10-K on prem or secure it directly from Edgar, and called the management discussion and analysis method to retrieve just the MD&A from the respective 10-K.
+For instance, a user can import the form 10-K from bulkedgar, point to their 10-K on prem or secure it directly from Edgar, and call the "management discussion and analysis" method to retrieve just the MD&A from the respective 10-K.
 
 The forms of interest to start include:
 - 10-K
