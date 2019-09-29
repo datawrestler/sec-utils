@@ -64,6 +64,23 @@ chmod +x run.sh
 ./run.sh
 ```
 
+You can also generate a config file and use the config to control parameters of longer runs:
+```python
+from secutils.utils import generate_config
+path_for_config = ''
+generate_config(path_for_config)
+```
+
+then when calling the longer download run:
+```bash
+python -m secutils.download_sec --config_path='path_for_config'
+```
+
+A useful trick when working with remote servers is to direct output from a session to a file. Using screen also maintains a session even if you disconnect from ssh:
+```bash
+screen -dm -L python -m secutils.download_sec --config_path='path_for_config'
+```
+
 Additionally, users can leverage the API directly for more hands on work. An overview resides in an [example jupyter notebook](https://github.com/datawrestler/sec-utils/blob/master/examples/Getting%20Started.ipynb) with additional details below:
 ```python
 from secutils.edgar import FormIDX

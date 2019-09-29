@@ -1,0 +1,13 @@
+log_level: INFO
+cache_dir: /path/to/cache
+output_dir: /path/to/output
+form_types:
+- 10-K
+- 10-Q
+ciks:
+- 129012312
+- 123219041
+- 120831241
+start_year: 1995
+end_year: 2019
+quarters: -1

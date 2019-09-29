@@ -1,10 +1,68 @@
 import os
+import argparse
 from pathlib import Path
-from typing import Union, List
+from typing import Union, List, Optional
 from datetime import datetime
 
 import ftfy
+import yaml
 
+
+def generate_config(fpath: Optional[str]=None) -> str:
+    """generate sample config file"""
+
+    if not fpath:
+        fpath = os.getcwd()
+
+    full_fpath = os.path.join(fpath, 'sample_config.yml')
+    
+    data = dict(
+        log_level='INFO',
+        cache_dir='/path/to/cache',
+        output_dir='/path/to/output',
+        form_types=['10-K', '10-Q'],
+        ciks=[129012312, 123219041, 120831241],
+        start_year=1995,
+        end_year=2019,
+        quarters=-1
+    )
+
+    with open(full_fpath, 'w') as outfile:
+        yaml.dump(data, outfile, default_flow_style=False, sort_keys=False)
+    
+    return full_fpath
+
+def yaml_config_to_args(args: argparse.Namespace) -> argparse.Namespace:
+    """parse yaml config into arguments"""
+    if args.config_path:
+        config = yaml.safe_load(open(args.config_path, 'r'))
+        log_level = config.get('log_level', None)
+        cache_dir = config.get('cache_dir', None)
+        output_dir = config.get('output_dir', None)
+        form_types = config.get('form_types', None)
+        ciks = config.get('ciks', None)
+        start_year = config.get('start_year', None)
+        end_year = config.get('end_year', None)
+        quarters = config.get('quarters', None)
+        
+        if log_level:
+            args.log_level = log_level  
+        if cache_dir:
+            args.cache_dir = cache_dir
+        if output_dir:
+            args.output_dir = output_dir
+        if form_types:
+            args.form_types = form_types
+        if ciks:
+            args.ciks = ciks
+        if start_year:
+            args.start_year = start_year
+        if end_year:
+            args.end_year = end_year
+        if quarters:
+            args.quarters = quarters
+            
+    return args
 
 def scan_output_dir(output_dir: Path) -> List[str]:
     seen_files = []

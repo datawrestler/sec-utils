@@ -5,3 +5,4 @@ httplib2
 ftfy
 pandas
 requests
+pyyaml
