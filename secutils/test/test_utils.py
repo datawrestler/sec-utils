@@ -16,8 +16,10 @@ class TestUtils(unittest.TestCase):
 
     def test_generate_config(self):
         path = 'data'
-        generate_config(path)
-        self.assertTrue(os.path.exists(os.path.join(path, 'sample_config.yml')), msg='Sample config not being created from generate_config')
+        config_path = generate_config(path)
+        check = os.path.exists(config_path)
+        os.remove(config_path)
+        self.assertTrue(check, msg='Sample config not being created from generate_config')
 
     def test_cik_config(self):
         dirname = os.path.dirname(__file__)
