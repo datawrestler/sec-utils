@@ -248,6 +248,13 @@ class FormIDX(object):
         return master_index
 
     def _filter_form_type(self, master_index: pd.DataFrame) -> pd.DataFrame:
+        """
+        Filter FormIDX to specific form types. For example, if FormIDX(form_types=['S-1', 'S-1/A'], year=2018, quarter=4), 
+        all S-1 and S-1/A forms from 2018, Q4 will be retrieved
+
+        Args:
+            master_index: input pd.DataFrame containing all FormIDX
+        """
         master_index['Form Type'] = master_index['Form Type'].apply(lambda x: x.strip())
         if self.form_types:
             unique_forms = master_index['Form Type'].unique().tolist()

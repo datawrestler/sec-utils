@@ -30,6 +30,8 @@ def main():
     parser.add_argument('--cik_path', type=str, help='Path to CIK text file')
     args = parser.parse_args()
 
+    print(args)
+
     if not args.quarters:
         args.quarters = list(range(1, 5))
 
