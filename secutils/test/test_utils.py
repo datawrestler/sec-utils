@@ -4,7 +4,7 @@ from datetime import datetime
 
 from secutils.utils import (scan_output_dir, _remove_bad_bytes, 
                             _to_quarter, ValidateFields, 
-                            _read_cik_config)
+                            _read_cik_config, generate_config)
 
 class TestUtils(unittest.TestCase):
 
@@ -13,6 +13,13 @@ class TestUtils(unittest.TestCase):
         quarter = _to_quarter(month)
         msg = f"Quarter should be Q4 - got {quarter} instead"
         self.assertEqual(quarter, 'Q4', msg)
+
+    def test_generate_config(self):
+        path = 'data'
+        config_path = generate_config(path)
+        check = os.path.exists(config_path)
+        os.remove(config_path)
+        self.assertTrue(check, msg='Sample config not being created from generate_config')
 
     def test_cik_config(self):
         dirname = os.path.dirname(__file__)

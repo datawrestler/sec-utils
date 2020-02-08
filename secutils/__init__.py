@@ -1,1 +1,3 @@
-from .edgar import FormIDX, SECContainer, DocumentDownloaderThread
+from secutils.edgar import FormIDX
+
+__version__ = '0.0.3'

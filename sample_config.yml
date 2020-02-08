@@ -1,0 +1,11 @@
+log_level: INFO
+# cache_dir: /mnt/sda/sec/cache
+output_dir: /mnt/sda/sec
+form_types:
+- S-1
+- S-1/A
+- 10-K
+- 10-Q
+start_year: 2015
+end_year: 2019
+quarters: -1

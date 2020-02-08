@@ -71,12 +71,6 @@ class SECContainer(object):
             cls.instance = super(SECContainer, cls).__new__(cls)
         return cls.instance
 
-    def to_pickle(self, output_dir: str):
-        pickle_dump_fname = f'log-month-{datetime.now().month}-day-{datetime.now().day}-hour-{datetime.now().hour}.p'
-        path = os.path.join(output_dir, pickle_dump_fname)
-        pkl.dump(self.__dict__, open(path, 'wb'))
-
-
 class FileUtils(object):
 
     base_url = 'https://www.sec.gov/Archives/'
@@ -230,9 +224,9 @@ class FormIDX(object):
                 logger.error(f"URL returned error ({status_code}): {self.year} - {self.quarter} - {self.download_url}")
                 return None
         og_shape = master_index.shape[0]
-        master_index = self._filter_seen_files(master_index)
         master_index = self._filter_form_type(master_index)
         master_index = self._filter_ciks(master_index)
+        master_index = self._filter_seen_files(master_index)
         num_remaining_download = master_index.shape[0]
         msg = f"master index ({self.year}) - ({self.quarter}) - original shape: {og_shape} - remaining download: {num_remaining_download}"
         logger.info(msg)
@@ -259,8 +253,9 @@ class FormIDX(object):
         if self.form_types:
             unique_forms = master_index['Form Type'].unique().tolist()
             form_not_found = [form for form in self.form_types if form not in unique_forms]
-            msg = f"specified form type not found in master.idx ({self.year}) - ({self.quarter}) - form not found: {form_not_found}"
-            logger.warning(msg)
+            if len(form_not_found) > 0:
+                msg = f"specified form type not found in master.idx ({self.year}) - ({self.quarter}) - form not found: {form_not_found}"
+                logger.warning(msg)
             master_index = master_index.loc[master_index['Form Type'].isin(self.form_types)]
         return master_index
 

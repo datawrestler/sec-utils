@@ -11,7 +11,7 @@ from typing import List
 from tqdm.auto import tqdm
 
 from secutils.edgar import FormIDX, SECContainer, DocumentDownloaderThread
-from secutils.utils import scan_output_dir, _read_cik_config
+from secutils.utils import scan_output_dir, _read_cik_config, yaml_config_to_args
 
 logger = logging.getLogger(__name__)
 
@@ -21,18 +21,27 @@ def main():
     parser.add_argument('--output_dir', type=Path, default=None, help='default download path')
     parser.add_argument('--form_types', nargs='+', default=None, help='form types to download')
     parser.add_argument('--num_workers', default=-1, type=int, help='Number of download workers')
-    parser.add_argument('--start_year', type=int, help='Download start year', required=True)
-    parser.add_argument('--end_year', type=int, help='Download end year', required=True)
-    parser.add_argument('--quarters', nargs='+', type=int, help='Quarters of documents to download')
+    parser.add_argument('--start_year', type=int, help='Download start year')
+    parser.add_argument('--end_year', type=int, help='Download end year')
+    parser.add_argument('--quarters', default=-1, nargs='+', type=int, choices=[-1, 1, 2, 3, 4], 
+                        help='Quarters of documents to download - if -1 then all quarters')
     parser.add_argument('--log_level', default='INFO', choices=['INFO', 'ERROR', 'WARN'], help='Default logging level')
     parser.add_argument('--cache_dir', type=str, help='form idx cache dir')
     parser.add_argument('--ciks', nargs='+', type=int, help='List of CIKs to download')
     parser.add_argument('--cik_path', type=str, help='Path to CIK text file')
+    parser.add_argument('--config_path', type=str, help='Path to yml config file')
     args = parser.parse_args()
 
+<<<<<<< HEAD
     print(args)
 
     if not args.quarters:
+=======
+    if args.config_path:
+        args = yaml_config_to_args(args)
+
+    if args.quarters == -1:
+>>>>>>> 30d96690aef3ca2f6289e2923d0251657b8ca652
         args.quarters = list(range(1, 5))
 
     if args.cik_path:
@@ -47,7 +56,7 @@ def main():
         args.num_workers = multiprocessing.cpu_count()
 
     # init container
-    sec_container = SECContainer
+    sec_container = SECContainer()
     sec_container.to_visit = set()
     sec_container.downloaded = set()
     sec_container.download_error = set()
@@ -71,10 +80,10 @@ def main():
                 sec_container.pbar = pbar
                 logger.info(f'Creating {args.num_workers} download threads')
                 threads = [DocumentDownloaderThread(i, f'thread-{i}', args.output_dir, args.cache_dir) for i in range(args.num_workers)]
-                for thread in threads:
-                    thread.start()
-
-    sec_container.to_pickle(args.output_dir)
+                # start threads
+                [thread.start() for thread in threads]
+                # delay execution of remaining script until all threads complete
+                [thread.join() for thread in threads]
 
 
 if __name__ == '__main__':
