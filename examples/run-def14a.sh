@@ -3,7 +3,7 @@
 # example bash script to kick off long running download run
 
 # source environment w/secutils installed
-source /home/datawrestler/anaconda3/bin/activate sec_env
+source /home/datawrestler/anaconda3/bin/activate sec-research
 
 # PARAMETERS
 OUTPUT_DIR=/home/datawrestler/data/sec

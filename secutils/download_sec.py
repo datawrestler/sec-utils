@@ -32,16 +32,10 @@ def main():
     parser.add_argument('--config_path', type=str, help='Path to yml config file')
     args = parser.parse_args()
 
-<<<<<<< HEAD
-    print(args)
-
-    if not args.quarters:
-=======
     if args.config_path:
         args = yaml_config_to_args(args)
 
     if args.quarters == -1:
->>>>>>> 30d96690aef3ca2f6289e2923d0251657b8ca652
         args.quarters = list(range(1, 5))
 
     if args.cik_path:
