@@ -261,7 +261,7 @@ class FormIDX(object):
 
     def _filter_ciks(self, master_index: pd.DataFrame) -> pd.DataFrame:
         if self.ciks:
-            self.ciks = [self.validate_cik(cik) for cik in self.ciks]
+            # self.ciks = [self.validate_cik(cik) for cik in self.ciks] ### no need for this as CIKs are filtered when read in from file
             master_index = master_index.loc[master_index['CIK'].isin(self.ciks)]
             msg = f"Found {master_index.shape[0]} files for CIK list"
             logger.info(msg)
