@@ -81,7 +81,8 @@ def _check_cache_dir(cache_dir: str) -> str:
 def _read_cik_config(cik_path: str) -> List[int]:
     with open(cik_path, 'r') as infile:
         lines = infile.readlines()
-        ciks = [ValidateFields.validate_cik(cik.replace('\n', '')) for cik in lines]
+        # ciks = [ValidateFields.validate_cik(cik.replace('\n', '')) for cik in lines]
+        ciks = [cik.replace('\n', '') for cik in lines]
     return ciks
 
 def _remove_bad_bytes(lines: List[bytes]) -> List[str]:
