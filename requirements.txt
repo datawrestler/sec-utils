@@ -6,3 +6,4 @@ ftfy
 pandas
 requests
 pyyaml
+dataclasses
